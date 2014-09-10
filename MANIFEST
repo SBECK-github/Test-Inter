@@ -1,5 +1,6 @@
+.travis.yml
 Build.PL
-ChangeLog
+Changes
 examples/is
 examples/ok
 examples/plan
@@ -7,6 +8,9 @@ examples/tests
 examples/use_ok
 INSTALL
 internal/build.yaml
+internal/ispell.isp
+internal/NOTES
+internal/TODO
 lib/Test/Inter.pm
 lib/Test/Inter.pod
 LICENSE
@@ -30,5 +34,4 @@ t/tests.t
 t/use_ok.1.t
 t/use_ok.2.t
 t/use_ok.3.t
-TODO
 META.yml

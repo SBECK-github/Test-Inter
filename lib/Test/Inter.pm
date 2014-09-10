@@ -1,5 +1,5 @@
 package Test::Inter;
-# Copyright (c) 2010-2011 Sullivan Beck. All rights reserved.
+# Copyright (c) 2010-2014 Sullivan Beck. All rights reserved.
 # This program is free software; you can redistribute it and/or modify it
 # under the same terms as Perl itself.
 
@@ -13,7 +13,7 @@ use File::Basename;
 use IO::File;
 
 our($VERSION);
-$VERSION = '1.05';
+$VERSION = '1.06';
 
 ###############################################################################
 # BASE METHODS
@@ -857,7 +857,14 @@ sub file {
 
    # Output file and directory
 
-   $outputdir = $testdir  if (! $outputdir);
+   if (! $outputdir) {
+      if (-d $testdir  &&
+          -w $testdir) {
+         $outputdir = $testdir;
+      } else {
+         $outputdir = ".";
+      }
+   }
    if ($outputdir) {
       if (! -d $outputdir  ||
           ! -w $outputdir) {
@@ -901,7 +908,7 @@ sub file {
    my @exp = <$in>;
    $in->close();
    chomp(@exp);
-   unlink($output);
+   unlink($output)   if (! $ENV{'TI_NOCLEAN'});
 
    while (@out < @exp) {
       push(@out,'');

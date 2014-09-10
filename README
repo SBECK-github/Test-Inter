@@ -2,9 +2,9 @@ NAME
     Test::Inter - framework for more readable interactive test scripts
 
 DESCRIPTION
-    This is another framework for writing test scripts. It is loosely
-    inspired by Test::More, and has most of it's functionality, but it is
-    not a drop-in replacement.
+    This is another framework for writing test scripts. Some of the syntax
+    is loosely inspired by Test::More, and has most of it's functionality,
+    but it is not a drop-in replacement.
 
     Test::More (and other existing test frameworks) suffer from two
     weaknesses, both of which have prevented me from ever using them:
@@ -28,7 +28,7 @@ DESCRIPTION
 
     Since I use test scripts in two ways (part of a standard test suite and
     to run the scripts in some interactive way to debug problems), I want to
-    be able to do the follwing trivially:
+    be able to do the following trivially:
 
     Easy access to a specific test or tests
         If I'm running the test script interactively (perhaps in the
@@ -53,36 +53,42 @@ DESCRIPTION
         what was input, what was output, and what was expected.
 
     The other feature that I wanted in a test suite is the ability to define
-    the tests in a readable format. In almost every case, it is best to
-    think of a test script as consisting of two separate parts: a script
-    part, and a test part, and the more you can keep the two separate, the
-    better.
+    the tests in a format that is natural and readable FOR THE TESTS. In
+    almost every case, it is best to think of a test script as consisting of
+    two separate parts: a script part, and a test part.
 
     The script part of a test script is the least important part! It's
-    usually fairly trivial, rarely needs to be changed, and is quite simply
-    not the focus of the test script.
+    usually fairly trivial, rarely needs to be changed, and is not the focus
+    of the test script.
 
     The tests part of the script IS the important part, and these should be
-    expressed in a form that is easy to maintain, easy to read, and easy to
-    modify, and none of these should involve modifying the script portion of
-    the test script in general. As a general rule, if the script portion of
-    the test script obscures the tests in any way, it's not written
-    correctly!
+    expressed in a form that is natural to them, easy to maintain, easy to
+    read, and easy to modify, and none of these should involve modifying the
+    script portion of the test script in general. Because the content of the
+    tests is the important part of the script, the emphasis should be in
+    making them more readable, even at the expense of the script portion. As
+    a general rule, if the script portion of the test script obscures the
+    tests in any way, it's not written correctly!
 
-    Compare this to any other systems where you are mixing two "languages".
-    For example, a PHP script where you have a mixture of PHP and HTML or a
-    templating system consisting of text and template commands. The more the
-    two languages are interwoven, the less readable both are, and the harder
-    it is to maintain.
+    The solution to this is well understood, and is common to many other
+    systems where you are mixing two "languages". The task of correctly
+    specifying both the tests and the test script is virtually identical to
+    the task of creating a PHP script which consists of a mixture of PHP and
+    HTML, or the task of creating a template file using some templating
+    system where the file consists of a mixture of text to be displayed and
+    templating commands. It is well understood in each of these cases that
+    the more the two "languages" are interwoven, the less readable both are,
+    and the harder it is to maintain. The more you are able to separate the
+    two, the easier both are to read and maintain.
 
     As often as possible, I want the tests to be written in some sort of
     text format which can be easily read as a table with no perl commands
-    interspersed. I want to the freedom to define the tests in one big
-    string (perhaps a DATA section, or even in a separate file) which is
+    interspersed. I want to the freedom to define the tests in one section
+    (a long string, the DATA section, or even in a separate file) which is
     easily readable. This may introduce the necessity of parsing it, but it
     makes it significantly easier to maintain the tests.
 
-    This flexibilty makes it much easier to read the tests (as opposed to
+    This flexibility makes it much easier to read the tests (as opposed to
     the script) which is the fundamental content of a test script.
 
     To illustrate some of this, in Test::More, a series of tests might be
@@ -104,17 +110,18 @@ DESCRIPTION
     several difficulties with this.
 
     Debugging the script is tedious
-        To debug the 3rd test, you have to open up the file and get the line
-        number of the 3rd test. You set a breakpoint there and then you can
-        run the script.
+        Say you ran the test suite, and test 3 failed. To debug it using a
+        traditional Test::* module, you have to open up the test script,
+        find the 3rd test (which won't necessarily be trivial, especially if
+        you're talking about the 103rd test), and then run the debugger
+        setting a break point at that line number.
 
-        It's typically not very hard to do this, but if you have to check
-        out the line number every time you want to visit a test, it can
-        break your chain of thought.
+        This sequence of steps is typically not very hard (especially when
+        the test script is as simple as the example above), but it's still
+        lots of steps that serve only to break your train of thought.
 
-        How much better to be able to say:
-
-            break func ($::TI_NUM==3)
+        How much better to be able to set a break point in the function that
+        actually performs the test for the Nth test.
 
         It would also be nice to be able to skip the first two tests...
         perhaps they take a long time to run, and I want to get right to
@@ -126,13 +133,14 @@ DESCRIPTION
         there is too much perl code among them, and virtually impossible to
         look at them as a whole.
 
-        It is true that looking at this as a perl script, it is very
-        simple... but the script ISN'T the content you're interested in. The
-        REAL content of this script are the tests, which consist of the
+        It is true that looking at this particular example, it is very
+        simple... but the script ISN'T the content you're interested in (and
+        bear in mind that many test scripts are nowhere near this simple).
+        The REAL content of this script are the tests, which consist of the
         function arguments and the expected result. Although it's not
         impossible to see each of these in the script above, it's not in a
         format that is conducive to studying the tests, and especially not
-        for examing the list of tests as a whole.
+        for examining the list of tests as a whole.
 
     Now, look at an alternate way of specifying the tests using this module:
 
@@ -154,13 +162,14 @@ DESCRIPTION
 
     This module supports a number of methods for defining tests, so you can
     use whichever one is most convenient (including methods that are
-    identical to Test::More).
+    identical to Test::More if that really is the best method).
 
     In addition, the following debugger command works as desired:
 
        b func ($::TI_NUM==3)
 
-    and you're ready to debug.
+    and you're ready to debug (assuming that the test function is named
+    'func').
 
 CREATING A TEST
     Every test may have several pieces of information:
@@ -220,7 +229,7 @@ BASE METHODS
         environment variable (which overrides any value passed to the new
         method). Third, you can set a global variable (which overrides both
         the environment variable and options passed to the new method).
-        Fouth, you can call the appropriate method to set the option. This
+        Forth, you can call the appropriate method to set the option. This
         overrides all other methods.
 
         Each of the allowed options are described below in the following
@@ -274,7 +283,7 @@ BASE METHODS
         Otherwise, a skip message is printed out.
 
         If no value is given, it defaults to 0 (which means that all
-        reamining tests are run).
+        remaining tests are run).
 
     testnum
            $o = new Test::Inter 'testnum' => $N;
@@ -292,8 +301,8 @@ BASE METHODS
            $o->done_testing($n);
 
         The TAP API (the 'language' used to run a sequence of tests and see
-        which ones failed and which ones passedd) requires a statement of
-        the number of tests that are expected to run.
+        which ones failed and which ones passed) requires a statement of the
+        number of tests that are expected to run.
 
         This statement can appear at the start of the test suite, or at the
         end.
@@ -320,7 +329,7 @@ BASE METHODS
 
         It is NOT strictly required to set a plan if the script is only run
         interactively, so if for some reason this module is used for test
-        scritps which are not part of a standard perl test suite, the plan
+        scripts which are not part of a standard perl test suite, the plan
         and done_testing statements are optional. As a matter of fact, the
         script will run just fine without them... but a perl installer will
         report a failure in the test suite.
@@ -468,7 +477,7 @@ METHODS FOR LOADING MODULES
 
         This is used to load a module using the perl 'require' function. If
         $mode is not passed in, the default mode (required) is used to test
-        the existance of the module.
+        the existence of the module.
 
         If $mode is passed in, it must be either the string 'forbid' or
         'feature'.
@@ -565,7 +574,7 @@ METHODS FOR RUNNING TEST
            $o->is(TESTS);
            $o->isnt(TESTS);
 
-        A test run with is looks as a result and tests to see if it is
+        A test run with is looks at a result and tests to see if it is
         identical to an expected result. If it is, the test passes.
         Otherwise it fails. In the case of a failure, a diagnostic message
         will show what result was actually obtained and what was expected.
@@ -600,30 +609,39 @@ METHODS FOR RUNNING TEST
            $o->file($func,$input,$outputdir,$expected,$name [,@args]);
 
         Sometimes it may be easiest to store the input, output, and expected
-        output from a series of tests in files. In this case, each line of
-        output will be treated as a single test, so the output and expected
-        output must match up exactly.
+        output from a test in a text file. In this case, each line of output
+        will be treated as a single test, so the output and expected output
+        must match up exactly.
 
         $func is a reference to a function which will produce a temporary
-        output file. If $input is specified, it is the name of the input
-        file, and it will be passed to the function as the first argument.
-        If $input is left blank, no input file will be used. The input file
-        may be specified as a full path, or just the file name (in which
-        case it will be looked for in the test directory and the current
-        directory).
+        output file.
 
-        $func also takes a arequired argument which is the output file. The
-        tests method will create a tempoary file containing the output. If
-        $outputdir is passed in, it is the directory where the output file
-        will be written. If $outputdir is left blank, the temporary file
-        will be written to the test directory.
+        If $input is specified, it is the name of the input file. If it is
+        empty, no input file will be used. The input file can be fully
+        specified, or it can be relative to the test directory.
 
-        If @args is passed in, it is a list of additional arguments which
-        will be passed to $func.
+        If $outputdir is passed in, it is the directory where the output
+        file will be written. It can be fully specified, or relative to the
+        test directory. If $outputdir is left blank, the temporary file will
+        be written to the test directory.
 
-        $expected is the name of a file which contains the expeccted output.
+        $expected is the name of a file which contains the expected output.
         It can be fully specified, or it will be checked for in the test
         directory.
+
+        $name is the name of this series of tests.
+
+        @args are extra arguments to pass to the test function.
+
+        The function will be called with the arguments:
+
+           &$func( [$input,] $output,@args);
+
+        $input is only passed in if it was passed in to this method. If no
+        input file is specified, nothing will be passed to the function.
+
+        $output is the name of a temporary file where the output will be
+        written to.
 
 USING THE TESTS METHOD
     It is expected that most tests (except for those that load a module)
@@ -874,7 +892,7 @@ SPECIFYING THE TESTS
 
     The test may be split across any number of lines, provided there is not
     a completely blank line (which signals the end of the test), so the
-    following are eqivalent:
+    following are equivalent:
 
        tests => "a b c",
        tests => "a b
@@ -1018,6 +1036,10 @@ ENVIRONMENT VARIABLES
 
     TI_WIDTH
         The width of the terminal.
+
+    TI_NOCLEAN
+        When running a file test, the temporary output file will not be
+        removed if this is set.
 
 HISTORY
     The history of this module dates back to 1996 when I needed to write a
