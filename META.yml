@@ -17,7 +17,7 @@ name: Test-Inter
 provides:
   Test::Inter:
     file: lib/Test/Inter.pm
-    version: '1.06'
+    version: '1.07'
 requires:
   File::Basename: '0'
   IO::File: '0'
@@ -25,4 +25,4 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: https://github.com/SBECK-github/Test-Inter
-version: '1.06'
+version: '1.07'

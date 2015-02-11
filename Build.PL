@@ -36,7 +36,7 @@ my $class = Module::Build->subclass(
 
 my $build = $class->new(
       module_name        => "Test::Inter",
-      dist_version       => "1.06",
+      dist_version       => "1.07",
       dist_abstract      => "framework for more readable interactive test scripts",
       license            => "perl",
       dist_author        => "Sullivan Beck <sbeck\@cpan.org>",

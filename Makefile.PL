@@ -32,7 +32,7 @@ if ($EU_MM_V < 6.64) {
 
 WriteMakefile(
    NAME             => "Test::Inter",
-   VERSION          => "1.06",
+   VERSION          => "1.07",
    ABSTRACT         => "framework for more readable interactive test scripts",
    LICENSE          => "perl",
    ($EU_MM_V >= 6.48

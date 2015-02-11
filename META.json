@@ -40,7 +40,7 @@
    "provides" : {
       "Test::Inter" : {
          "file" : "lib/Test/Inter.pm",
-         "version" : "1.06"
+         "version" : "1.07"
       }
    },
    "release_status" : "stable",
@@ -52,5 +52,5 @@
          "url" : "https://github.com/SBECK-github/Test-Inter"
       }
    },
-   "version" : "1.06"
+   "version" : "1.07"
 }
