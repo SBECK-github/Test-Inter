@@ -22,8 +22,9 @@ Any suggestions, bug reports, or donations :-) should be sent to me.
   - Fixed the Build.PL/Makefile.PL scripts to not install the example scripts.
     RT 84091
 
-1.06
+1.06  2015-02-11
   - Fixed some typos.  RT 88523.
   - Changed ChangeLog file to new Changes specification.
   - Documentation improvments
-
+  - Put distro on GitHub.  Gabor Szabo
+  - Fixed Module::Build requirement.  RT 102059.
