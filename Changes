@@ -28,3 +28,7 @@ Any suggestions, bug reports, or donations :-) should be sent to me.
   - Documentation improvments
   - Put distro on GitHub.  Gabor Szabo
   - Fixed Module::Build requirement.  RT 102059.
+
+1.07
+  - Some improvements to the POD documentation.
+  - Some changes to get better test coverage.
