@@ -1046,7 +1046,9 @@ so the following are equivalent:
    tests => "(a b) c"
 
 Although parens are optional, they may make things more readable, and allow
-you to use something other than whitespace as the delimiter.
+you to use something other than whitespace as the delimiter.  Since parens are
+actually ignored, a string '()' is also ignored, so do not use empty
+parentheses.
 
 If the character immediately following the opening paren, brace, or
 bracket is a punctuation mark, then it is used as the delimiter

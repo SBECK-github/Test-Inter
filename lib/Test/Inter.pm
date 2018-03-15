@@ -1413,24 +1413,42 @@ sub _skip {
          # Check for quoted
 
          ($err,$found,$match,@val) = $self->_parse_quoted($test,$EOT);
-         last  if ($found  ||  $err);
+         last  if ($err);
+         if ($found) {
+            # ''  remains ''
+            last;
+         }
 
          # Check for open
 
          ($err,$found,$match,@val) = $self->_parse_open_close($test,$EOT,$lparen,')');
-         last  if ($found  ||  $err);
+         last  if ($err);
+         if ($found) {
+            # ()  is an empty list
+            if (@val == 1  &&  $val[0] eq '') {
+               @val = ();
+            }
+            last;
+         }
 
          ($err,$found,$match,@val) = $self->_parse_open_close($test,$EOT,$lbrack,']');
          last  if ($err);
          if ($found) {
-            @val = ( [@val] );
+            # []  is []
+            if (@val == 1  &&  $val[0] eq '') {
+               @val = ([]);
+            } else {
+               @val = ( [@val] );
+            }
             last;
          }
 
          ($err,$found,$match,@val) = $self->_parse_open_close($test,$EOT,$lbrace,'}');
          last  if ($err);
          if ($found) {
-            if (@val % 2 == 0) {
+            if (@val == 1  &&  $val[0] eq '') {
+               @val = ( {} );
+            } elsif (@val % 2 == 0) {
                # Even number of elements
                @val = ( {@val} );
             } elsif (! defined $val[$#val]  ||
