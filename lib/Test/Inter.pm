@@ -13,7 +13,7 @@ use File::Basename;
 use IO::File;
 
 our($VERSION);
-$VERSION = '1.08';
+$VERSION = '1.09';
 
 ###############################################################################
 # BASE METHODS
