@@ -13,6 +13,7 @@ my $Pvers   = $];
 my $ConvVers= $ExtUtils::MakeMaker::VERSION;
 
 my %module_prereq = (
+   'Cwd'                      => '0',
    'File::Basename'           => '0',
    'IO::File'                 => '0',
 );
@@ -21,8 +22,10 @@ my %script_prereq = (
 );
 
 my %test_prereq = (
-   'Cwd'                      => '0',
+   'File::Find::Rule'         => '0',
    'Test::More'               => '0',
+   'Test::Pod'                => '1.00',
+   'Test::Pod::Coverage'      => '1.00',
 );
 
 my %config_prereq = (
