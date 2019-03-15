@@ -22,10 +22,7 @@ my %script_prereq = (
 );
 
 my %test_prereq = (
-   'File::Find::Rule'         => '0',
    'Test::More'               => '0',
-   'Test::Pod'                => '1.00',
-   'Test::Pod::Coverage'      => '1.00',
 );
 
 my %config_prereq = (
