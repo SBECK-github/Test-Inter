@@ -22,10 +22,7 @@ my %script_prereq = (
 );
 
 my %test_prereq = (
-   'File::Find::Rule'         => '0',
    'Test::More'               => '0',
-   'Test::Pod'                => '1.00',
-   'Test::Pod::Coverage'      => '1.00',
 );
 
 my %config_prereq = (
@@ -76,6 +73,10 @@ WriteMakefile(
              version   => 2,
           },
           resources    => {
+             bugtracker => {
+                web  => 'https://github.com/SBECK-github/Test-Inter/issues',
+             },
+             homepage => 'https://github.com/SBECK-github/Test-Inter',
              repository => {
                 type => 'git',
                 web  => 'https://github.com/SBECK-github/Test-Inter',
