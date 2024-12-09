@@ -867,7 +867,7 @@ sub file {
    my($self,$func,$input,$outputdir,$expected,$name,@args) = @_;
    $name = ""  if (! $name);
 
-   if (! ref($func) eq 'CODE') {
+   if (! (ref($func) eq 'CODE')) {
       $self->_die("file method required a coderef");
    }
 
