@@ -14,7 +14,7 @@ use IO::File;
 use Cwd 'abs_path';
 
 our($VERSION);
-$VERSION='1.13';
+$VERSION='1.14';
 
 ###############################################################################
 # BASE METHODS
